@@ -1,0 +1,26 @@
+<section>
+  <h2>Blog Posts</h2>
+  <%= for post <- posts do %>
+    <article>
+      <a href="/posts/<%= post.id %>"><%= post.title %></a>
+      <div>
+        <time><%= post.date %></time>
+      </div>
+    </article>
+  <% end %>
+</section>
+
+<section>
+  <h2>Talks</h2>
+  <ul>
+    <li>
+      <a href="https://shrug.org/meetings/shrug-64/">Rust for Rubyists</a> (<a href="https://github.com/northerner/rust-for-rubyists-talk">slides</a>) &#8211; Sheffield Ruby User Group, 2017
+    </li>
+    <li>
+      <a href="https://shrug.org/meetings/shrug-64/">Introducing Elixir</a> &#8211; Sheffield Ruby User Group, 2015
+    </li>
+    <li>
+      <a href="https://groups.google.com/d/msg/dotnetsheffield/GqP9IGlkChc/o_fw0_ItHsoJ">Playing with the PlayStation Mobile SDK Beta</a> &#8211; Sheffield .NET User Group, 2012
+    </li>
+  </ul>
+</section>
