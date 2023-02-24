@@ -7,9 +7,20 @@
     <link rel="stylesheet" href="/style.css">
   </head>
   <body>
-    <div class="container">
-      <h1><a href="/">Daniel King</a></h1>
-      <%= content %>
+    <div class="wrapper flow">
+      <header>
+        <h1>Daniel King</h1>
+        <nav>
+          <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/about">About</a></li>
+          </ul>
+        </nav>
+      </header>
+
+      <main class="flow">
+        <%= content %>
+      </main>
     </div>
   </body>
 </html>

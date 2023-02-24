@@ -17,9 +17,11 @@
 
 
 
-<pre class="wp-block-code"><code>my_beatles_array = &#91;“George”, “John”, “Paul”, “Ringo”]
+<pre><code>
+my_beatles_array = &#91;“George”, “John”, “Paul”, “Ringo”]
 my_beatles_array&#91;0]
->> “George”</code></pre>
+>> “George”
+</code></pre>
 
 
 

@@ -1,5 +1,34 @@
 <h2><%= post.title %></h2>
+<small><time><%= post.date %></time></small>
 
-<section>
+<article class="flow">
   <%= post.body %>
-</section>
+</article class="flow">
+
+<hr/>
+
+<ul role="list">
+  <li>
+    <%= case prev_post do %>
+      <% {:ok, prev} -> %>
+        <div>
+          Previous post: <a href="/posts/<%= prev.id %>"><%= prev.title %></a>
+        </div>
+      <% _ -> %>
+    <% end %>
+  </li>
+
+  <li>
+    <%= case next_post do %>
+      <% {:ok, next} -> %>
+        <div>
+          Next post: <a href="/posts/<%= next.id %>"><%= next.title %></a>
+        </div>
+      <% _ -> %>
+    <% end %>
+  </li>
+
+  <li>
+    <a href="javascript:history.back()">Back</a>
+  </li>
+</ul>

@@ -1,4 +1,4 @@
-<section>
+<section class="flow">
   <h2>Blog Posts</h2>
   <%= for post <- posts do %>
     <article>
@@ -10,17 +10,24 @@
   <% end %>
 </section>
 
-<section>
+<section class="flow">
   <h2>Talks</h2>
-  <ul>
-    <li>
-      <a href="https://shrug.org/meetings/shrug-64/">Rust for Rubyists</a> (<a href="https://github.com/northerner/rust-for-rubyists-talk">slides</a>) &#8211; Sheffield Ruby User Group, 2017
-    </li>
-    <li>
-      <a href="https://shrug.org/meetings/shrug-64/">Introducing Elixir</a> &#8211; Sheffield Ruby User Group, 2015
-    </li>
-    <li>
-      <a href="https://groups.google.com/d/msg/dotnetsheffield/GqP9IGlkChc/o_fw0_ItHsoJ">Playing with the PlayStation Mobile SDK Beta</a> &#8211; Sheffield .NET User Group, 2012
-    </li>
-  </ul>
+  <article>
+    <a href="https://shrug.org/meetings/shrug-64/">Rust for Rubyists</a> (<a href="https://github.com/northerner/rust-for-rubyists-talk">slides</a>)
+    <div>
+      Sheffield Ruby User Group, 2017
+    </div>
+  </article>
+  <article>
+    <a href="https://shrug.org/meetings/shrug-64/">Introducing Elixir</a>
+    <div>
+      Sheffield Ruby User Group, 2015
+    </div>
+  </article>
+  <article>
+    <a href="https://groups.google.com/d/msg/dotnetsheffield/GqP9IGlkChc/o_fw0_ItHsoJ">Playing with the PlayStation Mobile SDK Beta</a>
+    <div>
+      Sheffield .NET User Group, 2012
+    </div>
+  </article>
 </section>

@@ -20,4 +20,12 @@ defmodule DanielkingdevPlug.Blog do
   def get_post_by_id!(id) do
     Enum.find(all_posts(), &(&1.id == id))
   end
+
+  def get_post_and_adjacent_posts_by_id!(id) do
+    index = Enum.find_index(all_posts, &(&1.id == id))
+    prev_post = Enum.fetch(all_posts, index + 1)
+    next_post = Enum.fetch(all_posts, index - 1)
+
+    [prev_post, get_post_by_id!(id), next_post]
+  end
 end

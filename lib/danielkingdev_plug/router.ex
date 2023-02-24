@@ -8,7 +8,7 @@ defmodule DanielkingdevPlug.Router do
   plug Plug.Static,
     at: "/",
     from: :danielkingdev_plug,
-    only: ~w(favicon.ico style.css images)
+    only: ~w(favicon.ico style.css images fonts)
   plug :match
   plug :dispatch
 
@@ -17,9 +17,18 @@ defmodule DanielkingdevPlug.Router do
     render(conn, "index.html", [{:posts, posts}])
   end
 
+  get "/about" do
+    render(conn, "about.html")
+  end
+
   get "/posts/:id" do
     post = DanielkingdevPlug.Blog.get_post_by_id!(id)
-    render(conn, "posts/show.html", [{:post, post}])
+    [prev_post, post, next_post] = DanielkingdevPlug.Blog.get_post_and_adjacent_posts_by_id!(id)
+    render(conn, "posts/show.html", [
+      {:post, post},
+      {:prev_post, prev_post},
+      {:next_post, next_post}
+    ])
   end
 
   match _ do
