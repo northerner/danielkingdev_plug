@@ -1,5 +1,6 @@
 defmodule DanielkingdevPlug.Blog do
   alias DanielkingdevPlug.Blog.Post
+  alias DanielkingdevPlug.Blog.Feed, as: Feed
 
   use NimblePublisher,
     build: Post,
@@ -9,14 +10,17 @@ defmodule DanielkingdevPlug.Blog do
 
   # The @posts variable is first defined by NimblePublisher.
   # Let's further modify it by sorting all posts by descending date.
-  @posts Enum.sort_by(@posts, & &1.date, {:desc, Date})
+  @posts Enum.sort_by(@posts, & &1.date, {:desc, DateTime})
 
   # Let's also get all tags
   @tags @posts |> Enum.flat_map(& &1.tags) |> Enum.uniq() |> Enum.sort()
 
+  @feed Feed.build(@posts)
+
   # And finally export them
   def all_posts, do: @posts
   def all_tags, do: @tags
+  def feed, do: @feed
   def get_post_by_id!(id) do
     Enum.find(all_posts(), &(&1.id == id))
   end

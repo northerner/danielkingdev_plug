@@ -1,5 +1,6 @@
 defmodule DanielkingdevPlug.Router do
   use Plug.Router
+  alias DanielkingdevPlug.Blog, as: Blog
 
   @template_dir "lib/danielkingdev_plug/templates"
 
@@ -13,7 +14,7 @@ defmodule DanielkingdevPlug.Router do
   plug :dispatch
 
   get "/" do
-    posts = DanielkingdevPlug.Blog.all_posts
+    posts = Blog.all_posts
     render(conn, "index.html", [{:posts, posts}])
   end
 
@@ -21,9 +22,13 @@ defmodule DanielkingdevPlug.Router do
     render(conn, "about.html")
   end
 
+  get "/feed" do
+    send_resp(conn, 200, Blog.feed)
+  end
+
   get "/posts/:id" do
-    post = DanielkingdevPlug.Blog.get_post_by_id!(id)
-    [prev_post, post, next_post] = DanielkingdevPlug.Blog.get_post_and_adjacent_posts_by_id!(id)
+    post = Blog.get_post_by_id!(id)
+    [prev_post, post, next_post] = Blog.get_post_and_adjacent_posts_by_id!(id)
     render(conn, "posts/show.html", [
       {:post, post},
       {:prev_post, prev_post},

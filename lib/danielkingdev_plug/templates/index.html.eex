@@ -4,7 +4,7 @@
     <article>
       <a href="/posts/<%= post.id %>"><%= post.title %></a>
       <div>
-        <time><%= post.date %></time>
+        <time><%= Calendar.strftime(post.date, "%B %-d, %Y") %></time>
       </div>
     </article>
   <% end %>

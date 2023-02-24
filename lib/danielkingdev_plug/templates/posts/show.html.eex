@@ -1,5 +1,5 @@
 <h2><%= post.title %></h2>
-<small><time><%= post.date %></time></small>
+<small><time><%= Calendar.strftime(post.date, "%B %-d, %Y") %></time></small>
 
 <article class="flow">
   <%= post.body %>
