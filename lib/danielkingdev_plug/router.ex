@@ -23,7 +23,8 @@ defmodule DanielkingdevPlug.Router do
   end
 
   get "/feed" do
-    send_resp(conn, 200, Blog.feed)
+    put_resp_content_type(conn, "application/atom+xml")
+    |> send_resp(200, Blog.feed)
   end
 
   get "/posts/:id" do

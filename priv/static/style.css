@@ -101,9 +101,7 @@ body {
   flex-flow: column;
   width: min(100ch, 95%);
   margin: 10vh 5vw;
-
   line-height: 1.8em;
-
 }
 
 ul {
@@ -128,4 +126,8 @@ img {
 
 pre {
   font-size: min(1em, calc(100vw/48));
+  background: #161b22;
+  color: #c9d1d9;
+  padding: 1em;
+  line-height: 1.45em;
 }
