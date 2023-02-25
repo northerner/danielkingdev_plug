@@ -1,21 +1,19 @@
 # DanielkingdevPlug
 
-**TODO: Add description**
+The code behind my blog at danielking.dev.
+
+Written in Elixir, and compiling posts from markdown into memory at runtime, this blog follows the not-quite-a-static-site-generator pattern of the [NimblePublisher](https://github.com/dashbitco/nimble_publisher) library.
+
+This allows for the simplicity of posts in single markdown files, like you would have with traditional static site generators, without needing to generate all the extra/duplicate pages you would need for features like tag filtering and search.
 
 ## Installation
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `danielkingdev_plug` to your list of dependencies in `mix.exs`:
+1. Install Elixir and dependencies.
+2. Pull the repo and run `mix deps.get`
+3. Start the server with `mix run --no-halt`
+4. View the site at http://localhost:4000
 
-```elixir
-def deps do
-  [
-    {:danielkingdev_plug, "~> 0.1.0"}
-  ]
-end
-```
+## Deploy
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at <https://hexdocs.pm/danielkingdev_plug>.
-
+1. Install the fly.io CLI tool.
+2. Run `fly deploy`
