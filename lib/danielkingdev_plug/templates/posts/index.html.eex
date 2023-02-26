@@ -1,0 +1,11 @@
+<section class="flow">
+  <h2>Posts tagged "<%= tag %>"</h2>
+  <%= for post <- posts do %>
+    <article>
+      <a href="/posts/<%= post.id %>"><%= post.title %></a>
+      <div>
+        <time><%= Calendar.strftime(post.date, "%B %-d, %Y") %></time>
+      </div>
+    </article>
+  <% end %>
+</section>

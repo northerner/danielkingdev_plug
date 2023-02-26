@@ -5,7 +5,7 @@
   description: "Debugging Vim performance issues"
 }
 ---
-Like most Vim/Neovim users I&#8217;ve built up a set of plugins and config files over the years that get the text editor customized for me. If you're interested in my current setup you can see it in my [dotfiles repo](//github.com/northerner/.dotfiles).
+Like most Vim/Neovim users I've built up a set of plugins and config files over the years that get the text editor customized for me. If you're interested in my current setup you can see it in my [dotfiles repo](//github.com/northerner/.dotfiles).
 
 Since most of the time I'm adding a new plugin or setting individually, I can usually work out the culprit when Neovim starts running much slower. However, over the past few weeks I've had a [particular issue with eruby files](//github.com/neovim/neovim/issues/12562) and there was no obvious cause.
 

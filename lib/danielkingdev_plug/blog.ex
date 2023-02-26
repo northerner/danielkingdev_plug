@@ -21,8 +21,13 @@ defmodule DanielkingdevPlug.Blog do
   def all_posts, do: @posts
   def all_tags, do: @tags
   def feed, do: @feed
+
   def get_post_by_id!(id) do
     Enum.find(all_posts(), &(&1.id == id))
+  end
+
+  def get_posts_by_tag(tag) do
+    Enum.filter(all_posts(), &(Enum.member?(&1.tags, tag)))
   end
 
   def get_post_and_adjacent_posts_by_id!(id) do

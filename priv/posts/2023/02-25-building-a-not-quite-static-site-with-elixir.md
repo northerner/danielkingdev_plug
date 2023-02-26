@@ -1,7 +1,7 @@
 %{
   title: "Building a not-quite-static site with Elixir",
   author: "Daniel King",
-  tags: ~w(elixir),
+  tags: ~w(elixir plug software simplicity),
   description: "How this site was constructed with Elixir, Plug, and NimblePublisher"
 }
 ---

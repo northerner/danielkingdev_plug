@@ -1,7 +1,7 @@
 %{
   title: "Managing Haskell versions",
   author: "Daniel King",
-  tags: ~w(haskell),
+  tags: ~w(software haskell),
   description: "The issues with using asdf to manage Haskell versions"
 }
 ---

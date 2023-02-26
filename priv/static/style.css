@@ -77,13 +77,17 @@ select {
 
 /* Custom */
 
+:root {
+  --clickable-color: #03584f;
+}
+
 @font-face {
   font-family: FiraSansRegular;
   src: url('/fonts/FiraSans-Regular.woff2') format('woff2');
 }
 
 a {
-  color: #03584f;
+  color: var(--clickable-color);
 }
 
 body {
@@ -130,4 +134,14 @@ pre {
   color: #c9d1d9;
   padding: 1em;
   line-height: 1.45em;
+}
+
+.tag a {
+  text-decoration: none;
+  font-size: 0.7em;
+  padding-right: 1em;
+}
+
+.post-head {
+  line-height: 1.6em;
 }

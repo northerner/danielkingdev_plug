@@ -1,5 +1,12 @@
-<h2><%= post.title %></h2>
-<small><time><%= Calendar.strftime(post.date, "%B %-d, %Y") %></time></small>
+<div class="post-head">
+  <h2><%= post.title %></h2>
+  <div class="tag-list">
+    <%= for tag <- post.tags do %>
+      <span class="tag"><a href="/posts?tag=<%= tag %>"><%= tag %></a></span>
+    <% end %>
+  </div>
+  <small><time><%= Calendar.strftime(post.date, "%B %-d, %Y") %></time></small>
+</div>
 
 <article class="flow">
   <%= post.body %>
