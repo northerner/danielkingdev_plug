@@ -1,6 +1,7 @@
 defmodule DanielkingdevPlug.Blog do
   alias DanielkingdevPlug.Blog.Post
   alias DanielkingdevPlug.Blog.Feed, as: Feed
+  alias DanielkingdevPlug.Blog.Search, as: Search
 
   use NimblePublisher,
     build: Post,
@@ -17,6 +18,8 @@ defmodule DanielkingdevPlug.Blog do
 
   @feed Feed.build(@posts)
 
+  @search_index Search.build_index(@posts)
+
   # And finally export them
   def all_posts, do: @posts
   def all_tags, do: @tags
@@ -28,6 +31,15 @@ defmodule DanielkingdevPlug.Blog do
 
   def get_posts_by_tag(tag) do
     Enum.filter(all_posts(), &(Enum.member?(&1.tags, tag)))
+  end
+
+  def get_posts_by_term(term) do
+    case Map.fetch(@search_index, term) do
+      {:ok, posts} ->
+        Enum.map(posts, fn id -> Enum.at(@posts, id) end)
+      _ ->
+        []
+    end
   end
 
   def get_post_and_adjacent_posts_by_id!(id) do

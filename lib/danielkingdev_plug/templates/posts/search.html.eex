@@ -1,0 +1,17 @@
+<section class="flow">
+  <h2>Search posts containing "<%= term %>"</h2>
+
+  <form action="/search" method="get">
+    <input type="search" id="site-search" name="term" value="<%= term %>">
+    <input type="submit" value="Search">
+  </form>
+
+  <%= for post <- posts do %>
+    <article>
+      <a href="/posts/<%= post.id %>"><%= post.title %></a>
+      <div>
+        <time><%= Calendar.strftime(post.date, "%B %-d, %Y") %></time>
+      </div>
+    </article>
+  <% end %>
+</section>

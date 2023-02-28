@@ -4,7 +4,6 @@ defmodule DanielkingdevPlug.Router do
 
   @template_dir "lib/danielkingdev_plug/templates"
 
-  plug Plug.Logger, log: :debug
   plug Plug.Head
   plug Plug.Static,
     at: "/",
@@ -27,9 +26,20 @@ defmodule DanielkingdevPlug.Router do
     |> send_resp(200, Blog.feed)
   end
 
+  get "/search" do
+    case get_param(conn, "term") do
+      :no_param ->
+        posts = Blog.get_posts_by_term("ruby")
+        render(conn, "posts/search.html", [{:posts, posts}, {:term, "ruby"}])
+      term ->
+        posts = Blog.get_posts_by_term(term)
+        render(conn, "posts/search.html", [{:posts, posts}, {:term, term}])
+    end
+  end
+
   get "/posts" do
-    case get_tag(conn) do
-      :no_tag ->
+    case get_param(conn, "tag") do
+      :no_param ->
         send_resp(conn, :not_found, "Missing tag")
       tag ->
         posts = Blog.get_posts_by_tag(tag)
@@ -52,17 +62,17 @@ defmodule DanielkingdevPlug.Router do
     send_resp(conn, 404, "ya wot m8?")
   end
 
-  defp get_tag(conn) do
+  defp get_param(conn, param) do
     case Plug.Conn.fetch_query_params(conn).query_params do
-      %{"tag" => tag} ->
+      %{^param => tag} ->
         case Regex.scan(~r/[a-zA-Z-]+/, tag) do
           [] ->
-            :no_tag
+            :no_param
           matches ->
             matches |> hd |> hd |> String.downcase
         end
       _ ->
-        :no_tag
+        :no_param
     end
   end
 
