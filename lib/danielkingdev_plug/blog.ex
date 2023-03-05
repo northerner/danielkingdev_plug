@@ -1,17 +1,9 @@
 defmodule DanielkingdevPlug.Blog do
-  alias DanielkingdevPlug.Blog.Post
+  alias DanielkingdevPlug.Blog.NewPost, as: Post
   alias DanielkingdevPlug.Blog.Feed, as: Feed
   alias DanielkingdevPlug.Blog.Search, as: Search
 
-  use NimblePublisher,
-    build: Post,
-    from: Application.app_dir(:danielkingdev_plug, "priv/posts/**/*.md"),
-    as: :posts,
-    highlighters: [:makeup_elixir, :makeup_erlang]
-
-  # The @posts variable is first defined by NimblePublisher.
-  # Let's further modify it by sorting all posts by descending date.
-  @posts Enum.sort_by(@posts, & &1.date, {:desc, DateTime})
+  @posts Enum.sort_by(Post.build_posts, & &1.date, {:desc, DateTime})
 
   # Let's also get all tags
   @tags @posts |> Enum.flat_map(& &1.tags) |> Enum.uniq() |> Enum.sort()
@@ -33,13 +25,23 @@ defmodule DanielkingdevPlug.Blog do
     Enum.filter(all_posts(), &(Enum.member?(&1.tags, tag)))
   end
 
-  def get_posts_by_term(term) do
-    case Map.fetch(@search_index, term) do
+  def get_posts_by_term(term) when is_binary(term) do
+    case Map.fetch(@search_index, String.downcase(term)) do
       {:ok, posts} ->
         Enum.map(posts, fn id -> Enum.at(@posts, id) end)
       _ ->
         []
     end
+  end
+
+  def get_posts_by_term(term) when is_list(term) do
+    intersection = Enum.reduce(term, MapSet.new(all_posts), fn word, acc ->
+      get_posts_by_term(word)
+      |> MapSet.new
+      |> MapSet.intersection(acc)
+    end)
+
+    MapSet.to_list(intersection)
   end
 
   def get_post_and_adjacent_posts_by_id!(id) do

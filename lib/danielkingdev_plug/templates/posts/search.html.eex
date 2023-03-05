@@ -1,12 +1,14 @@
 <section class="flow">
-  <h2>Search posts containing "<%= term %>"</h2>
+  <%= if term != nil do %>
+    <h2>Search posts containing "<%= Enum.join(term, " ") %>"</h2>
+  <% end %>
 
   <form action="/search" method="get">
-    <input type="search" id="site-search" name="term" value="<%= term %>">
+    <input type="search" id="site-search" name="term" value="<%= term && Enum.join(term, " ") || "" %>">
     <input type="submit" value="Search">
   </form>
 
-  <%= for post <- posts do %>
+  <%= for post <- (posts || []) do %>
     <article>
       <a href="/posts/<%= post.id %>"><%= post.title %></a>
       <div>

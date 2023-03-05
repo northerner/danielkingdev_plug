@@ -29,8 +29,7 @@ defmodule DanielkingdevPlug.Router do
   get "/search" do
     case get_param(conn, "term") do
       :no_param ->
-        posts = Blog.get_posts_by_term("ruby")
-        render(conn, "posts/search.html", [{:posts, posts}, {:term, "ruby"}])
+        render(conn, "posts/search.html", [{:posts, []}, {:term, nil}])
       term ->
         posts = Blog.get_posts_by_term(term)
         render(conn, "posts/search.html", [{:posts, posts}, {:term, term}])
@@ -42,7 +41,7 @@ defmodule DanielkingdevPlug.Router do
       :no_param ->
         send_resp(conn, :not_found, "Missing tag")
       tag ->
-        posts = Blog.get_posts_by_tag(tag)
+        posts = Blog.get_posts_by_tag(hd(tag))
         render(conn, "posts/index.html", [{:posts, posts}, {:tag, tag}])
     end
   end
@@ -69,7 +68,7 @@ defmodule DanielkingdevPlug.Router do
           [] ->
             :no_param
           matches ->
-            matches |> hd |> hd |> String.downcase
+            matches |> List.flatten
         end
       _ ->
         :no_param

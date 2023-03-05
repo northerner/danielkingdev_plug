@@ -2,11 +2,27 @@ defmodule DanielkingdevPlug.Blog.Search do
   def build_index(posts) do
     Stream.with_index(posts)
     |> Enum.reduce(%{}, fn ({post, current_post_index}, word_index) ->
-      String.downcase(post.body)
-      |> String.split(" ")
-      |> Enum.filter(fn x -> String.match?(x, ~r/^[[:word:]]+$/) end)
+      extract_text_from_markdown(post.markdown_body)
+      |> String.replace(~r/[.,":;]+/, " ")
+      |> String.downcase
+      |> String.split(~r/\s+/)
       |> Enum.uniq
       |> add_words_to_index(current_post_index, word_index)
+    end)
+  end
+
+  defp extract_text_from_markdown(md) when is_binary(md) do
+    {:ok, ast, _} = Earmark.as_ast(md)
+    String.trim(extract_text_from_ast(ast, ""))
+  end
+
+  defp extract_text_from_ast(ast, result) when is_list(ast) and is_binary(result) do
+    Enum.reduce(ast, result, fn
+      {_html_tag, _atts, children, _m}, acc ->
+        extract_text_from_ast(children, acc)
+
+      text_leaf, acc when is_binary(text_leaf) ->
+        acc <> " " <> text_leaf
     end)
   end
 

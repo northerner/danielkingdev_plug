@@ -9,7 +9,7 @@
 </div>
 
 <article class="flow">
-  <%= post.body %>
+  <%= post.html_body %>
 </article class="flow">
 
 <hr/>

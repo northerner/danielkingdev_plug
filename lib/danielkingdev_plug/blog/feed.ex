@@ -10,7 +10,7 @@ defmodule DanielkingdevPlug.Blog.Feed do
     |> Atomex.generate_document()
   end
 
-  defp get_entry(%{id: id, body: body, date: date, title: title}) do
+  defp get_entry(%{id: id, html_body: body, date: date, title: title}) do
     Entry.new("https://danielking.dev/posts/#{id}", date, title)
     |> Entry.author("Daniel King")
     |> Entry.content(body, type: "html")
