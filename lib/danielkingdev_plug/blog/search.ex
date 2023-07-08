@@ -3,13 +3,24 @@ defmodule DanielkingdevPlug.Blog.Search do
     Stream.with_index(posts)
     |> Enum.reduce(%{}, fn ({post, current_post_index}, word_index) ->
       extract_text_from_markdown(post.markdown_body)
-      |> String.replace(~r/![[:word:]]+/, " ")
+      |> String.replace(~r/[.,":;()<>?\\\/]+/, " ")
       |> String.downcase
       |> String.split(~r/\s+/)
       |> Enum.uniq
       |> Stemmer.stem
       |> add_words_to_index(current_post_index, word_index)
     end)
+  end
+
+  def find_by_frequency(index, stem) do
+    case Map.fetch(index, stem) do
+      {:ok, post_ids} ->
+        Enum.frequencies(post_ids)
+        |> Enum.sort_by(&(elem(&1, 1)), :desc)
+        |> Enum.map(&(elem(&1, 0)))
+      _ ->
+        []
+    end
   end
 
   defp extract_text_from_markdown(md) when is_binary(md) do
