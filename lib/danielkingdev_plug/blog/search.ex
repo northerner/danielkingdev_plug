@@ -3,10 +3,11 @@ defmodule DanielkingdevPlug.Blog.Search do
     Stream.with_index(posts)
     |> Enum.reduce(%{}, fn ({post, current_post_index}, word_index) ->
       extract_text_from_markdown(post.markdown_body)
-      |> String.replace(~r/[.,":;]+/, " ")
+      |> String.replace(~r/![[:word:]]+/, " ")
       |> String.downcase
       |> String.split(~r/\s+/)
       |> Enum.uniq
+      |> Stemmer.stem
       |> add_words_to_index(current_post_index, word_index)
     end)
   end

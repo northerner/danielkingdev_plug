@@ -26,7 +26,8 @@ defmodule DanielkingdevPlug.Blog do
   end
 
   def get_posts_by_term(term) when is_binary(term) do
-    case Map.fetch(@search_index, String.downcase(term)) do
+    stem = Stemmer.stem(term)
+    case Map.fetch(@search_index, stem) do
       {:ok, posts} ->
         Enum.map(posts, fn id -> Enum.at(@posts, id) end)
       _ ->
