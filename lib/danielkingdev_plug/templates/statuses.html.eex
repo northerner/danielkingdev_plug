@@ -1,0 +1,14 @@
+<h2>Statuses</h2>
+
+<p>Recent posts from my Mastodon account @kingy@antiquated.systems</p>
+
+<hr/>
+
+<ul role="list">
+  <%= for status <- statuses do %>
+    <li class="status">
+      <div><%= status["content"] %></div>
+      <small><a href="<%= status["url"] %>"><%= status["created_at"] %></a></small>
+    </li>
+  <% end %>
+</ul>

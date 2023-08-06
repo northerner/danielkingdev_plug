@@ -145,3 +145,7 @@ pre {
 .post-head {
   line-height: 1.6em;
 }
+
+.status {
+  padding: 1em 0;
+}

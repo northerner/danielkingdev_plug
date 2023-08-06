@@ -2,20 +2,20 @@ defmodule DanielkingdevPlug.Blog do
   alias DanielkingdevPlug.Blog.NewPost, as: Post
   alias DanielkingdevPlug.Blog.Feed, as: Feed
   alias DanielkingdevPlug.Blog.Search, as: Search
+  alias DanielkingdevPlug.Blog.Mastodon, as: Mastodon
 
   @posts Enum.sort_by(Post.build_posts, & &1.date, {:desc, DateTime})
 
-  # Let's also get all tags
   @tags @posts |> Enum.flat_map(& &1.tags) |> Enum.uniq() |> Enum.sort()
 
   @feed Feed.build(@posts)
 
   @search_index Search.build_index(@posts)
 
-  # And finally export them
   def all_posts, do: @posts
   def all_tags, do: @tags
   def feed, do: @feed
+  def statuses, do: Mastodon.fetch()
 
   def get_post_by_id!(id) do
     Enum.find(all_posts(), &(&1.id == id))

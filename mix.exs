@@ -25,7 +25,8 @@ defmodule DanielkingdevPlug.MixProject do
       {:bandit, ">= 0.6.8"},
       {:atomex, "0.3.0"},
       {:earmark, "~> 1.4"},
-      {:stemmer, "~> 1.1"}
+      {:stemmer, "~> 1.1"},
+      {:req, "~> 0.3.0"}
     ]
   end
 end

@@ -58,6 +58,10 @@ defmodule DanielkingdevPlug.Router do
     ])
   end
 
+  get "/statuses" do
+    render(conn, "statuses.html", [{:statuses, Blog.statuses()}])
+  end
+
   match _ do
     send_resp(conn, 404, "ya wot m8?")
   end
