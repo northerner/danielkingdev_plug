@@ -32,7 +32,7 @@ defmodule DanielkingdevPlug.Blog do
   end
 
   def get_posts_by_term(term) when is_list(term) and length(term) > 1 do
-    intersection = Enum.reduce(term, MapSet.new(all_posts), fn word, acc ->
+    intersection = Enum.reduce(term, MapSet.new(all_posts()), fn word, acc ->
       get_posts_by_term(word)
       |> MapSet.new
       |> MapSet.intersection(acc)
@@ -46,9 +46,9 @@ defmodule DanielkingdevPlug.Blog do
   end
 
   def get_post_and_adjacent_posts_by_id!(id) do
-    index = Enum.find_index(all_posts, &(&1.id == id))
-    prev_post = Enum.fetch(all_posts, index + 1)
-    next_post = Enum.fetch(all_posts, index - 1)
+    index = Enum.find_index(all_posts(), &(&1.id == id))
+    prev_post = Enum.fetch(all_posts(), index + 1)
+    next_post = Enum.fetch(all_posts(), index - 1)
 
     [prev_post, get_post_by_id!(id), next_post]
   end

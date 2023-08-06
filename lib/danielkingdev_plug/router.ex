@@ -51,6 +51,7 @@ defmodule DanielkingdevPlug.Router do
     [prev_post, post, next_post] = Blog.get_post_and_adjacent_posts_by_id!(id)
 
     render(conn, "posts/show.html", [
+      {:title, post.title},
       {:post, post},
       {:prev_post, prev_post},
       {:next_post, next_post}
@@ -82,10 +83,12 @@ defmodule DanielkingdevPlug.Router do
       |> String.replace_suffix(".html", ".html.eex")
       |> EEx.eval_file(assigns)
 
+    assigns = [{:title, "Daniel King - Software Engineering"} | assigns]
+
     layout =
       @template_dir
       |> Path.join("layout.html.eex")
-      |> EEx.eval_file([{:content, body}])
+      |> EEx.eval_file([{:content, body} | assigns])
 
     send_resp(conn, (status || 200), layout)
   end
