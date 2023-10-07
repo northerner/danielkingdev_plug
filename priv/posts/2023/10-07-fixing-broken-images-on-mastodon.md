@@ -26,7 +26,7 @@ You can check if the actual image files are still on disk with Paperclip's `exis
 
 Start by ssh'ing into your server, then become the Mastodon user and load the Rails console with:
 
-``````
+```
 bundle exec rails c
 ```
 
