@@ -15,7 +15,7 @@ defmodule DanielkingdevPlug.Blog do
   def all_posts, do: @posts
   def all_tags, do: @tags
   def feed, do: @feed
-  def statuses, do: Mastodon.fetch()
+  def statuses, do: Mastodon.statuses()
 
   def get_post_by_id!(id) do
     Enum.find(all_posts(), &(&1.id == id))

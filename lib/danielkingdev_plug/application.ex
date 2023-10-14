@@ -10,7 +10,8 @@ defmodule DanielkingdevPlug.Application do
     children = [
       # Starts a worker by calling: DanielkingdevPlug.Worker.start_link(arg)
       # {DanielkingdevPlug.Worker, arg}
-      {Bandit, plug: DanielkingdevPlug.Router, scheme: :http}
+      {Bandit, plug: DanielkingdevPlug.Router, scheme: :http},
+      {DanielkingdevPlug.Blog.Mastodon, []}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
