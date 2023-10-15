@@ -10,12 +10,12 @@ Sharing state in Elixir (like Erlang) can be a little strange for those coming f
 
 In adding some caching for the [Mastodon](/statuses) page of this site I reached for Elixir's very useful [Agent](https://elixir-lang.org/getting-started/mix-otp/agent.html) module, a simple wrapper around the more complex GenServer abstraction that can store and share state.
 
-The code is shared below. The `start_link` function is to create the process with some initial state, and tags it with a global name so other processes can find it.
+## Caching an API response with an Agent
+
+The `start_link` function is to create the process with some initial state, the `name` argument adds a globally shared name that allows other processes to call it.
 
 The API call is done in `fetch`, I want to avoid calling it too often, so the public `statuses` function will return the cached state with `Agent.get()` and only try to fetch statuses again if the current list is empty or hasn't been refreshed today.
 
-
-## Caching an API response with an Agent
 
 ```elixir
 defmodule DanielkingdevPlug.Blog.Mastodon do
@@ -58,7 +58,7 @@ defmodule DanielkingdevPlug.Blog.Mastodon do
 end
 ```
 
-With this in place I just need to add the agent to my supervision tree with a line in the `children` array, that will make sure the process is always running, available to any other process by calling `Blog.Mastodon.statuses()`.
+With this in place I just need to add the agent to my supervision tree with a line in the `children` list, that will make sure the process is always running, available to any other process by calling `Blog.Mastodon.statuses()`.
 
 
 ```elixir
