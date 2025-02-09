@@ -32,7 +32,16 @@ defmodule DanielkingdevPlug.Blog.Mastodon do
     )
 
     Enum.map(resp.body, fn item ->
-      Map.take(item, ["content", "created_at", "url", "media_attachments"])
+      created_at = DateTime.from_iso8601(item["created_at"])
+      |> elem(1)
+      |> Calendar.strftime("%A, %B %d %Y")
+
+      %{
+        "content" => item["content"],
+        "created_at" => created_at,
+        "url" => item["url"],
+        "media_attachments" => item["media_attachments"]
+      }
     end)
   end
 end

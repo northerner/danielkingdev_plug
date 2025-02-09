@@ -149,3 +149,23 @@ pre {
 .status {
   padding: 1em 0;
 }
+
+button {
+  border: 0;
+  padding: 0;
+  line-height: 0;
+  cursor: zoom-in;
+}
+
+[popover] {
+  inline-size: 95vmin;
+  border: 0;
+
+  img {
+    height: auto;
+  }
+}
+
+::backdrop {
+  background: rgba(0,0,0,0.75);
+}

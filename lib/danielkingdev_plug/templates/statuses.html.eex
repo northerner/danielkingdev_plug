@@ -10,7 +10,13 @@
       <div><%= status["content"] %></div>
         <div style="display: flex; flex-wrap: wrap;">
           <%= for attachment <- status["media_attachments"] do %>
-            <img src="<%= attachment["url"] %>" style="max-width: 50%; padding: 1vw;">
+            <button popovertarget="<%= attachment["id"] %>" style="max-width: 50%; padding: 1vw;">
+              <img src="<%= attachment["url"] %>" loading="lazy">
+            </button>
+
+            <div popover="auto" id="<%= attachment["id"] %>">
+              <img src="<%= attachment["url"] %>" loading="lazy">
+            </div>
           <% end %>
         </div>
       <small><a href="<%= status["url"] %>"><%= status["created_at"] %></a></small>
