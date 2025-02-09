@@ -5,7 +5,8 @@ defmodule DanielkingdevPlug.Application do
   def start(_type, _args) do
     children = [
       {Bandit, plug: DanielkingdevPlug.Router, scheme: :http},
-      {DanielkingdevPlug.Blog.Mastodon, []}
+      {DanielkingdevPlug.Blog.Mastodon, []},
+      {DanielkingdevPlug.Blog.Bluesky, []}
     ]
 
     opts = [strategy: :one_for_one, name: DanielkingdevPlug.Supervisor]

@@ -59,7 +59,10 @@ defmodule DanielkingdevPlug.Router do
   end
 
   get "/statuses" do
-    render(conn, "statuses.html", [{:statuses, Blog.statuses()}])
+    render(conn, "statuses.html", [
+      {:bluesky_statuses, Blog.bluesky_statuses()},
+      {:mastodon_statuses, Blog.mastodon_statuses()}
+    ])
   end
 
   match _ do

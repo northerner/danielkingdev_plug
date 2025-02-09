@@ -1,4 +1,4 @@
-defmodule DanielkingdevPlug.Blog.Mastodon do
+defmodule DanielkingdevPlug.Blog.Bluesky do
   use Agent
 
   def start_link(_) do
@@ -23,26 +23,24 @@ defmodule DanielkingdevPlug.Blog.Mastodon do
   end
 
   defp fetch do
-    IO.puts "Fetching toots..."
+    IO.puts "Fetching posts..."
 
     resp = Req.get!(
-      "https://antiquated.systems/api/v1/accounts/108233374888035311/statuses?limit=5&exclude_replies=true&exclude_reblogs=true",
-      auth: {:bearer, System.get_env("MASTODON_TOKEN")},
+      "https://public.api.bsky.app/xrpc/app.bsky.feed.getAuthorFeed?actor=did:plc:nmtxkowa2h27yvdqjq7wi6sq",
       cache: true
     )
 
-    Enum.map(resp.body, fn item ->
-      created_at = DateTime.from_iso8601(item["created_at"])
+    Enum.map(resp.body["feed"], fn %{"post" => %{"record" => record, "uri" => uri, "author" => author}} ->
+      created_at = DateTime.from_iso8601(record["createdAt"])
       |> elem(1)
       |> Calendar.strftime("%A, %B %d %Y")
 
       %{
-        "content" => item["content"],
+        "content" => record["text"],
         "created_at" => created_at,
-        "url" => item["url"],
-        "media_attachments" => item["media_attachments"],
-        "name" => item["account"]["display_name"],
-        "avatar" => item["account"]["avatar_static"]
+        "url" => uri,
+        "name" => author["displayName"],
+        "avatar" => author["avatar"]
       }
     end)
   end

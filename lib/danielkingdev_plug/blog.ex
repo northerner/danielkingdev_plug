@@ -3,6 +3,7 @@ defmodule DanielkingdevPlug.Blog do
   alias DanielkingdevPlug.Blog.Feed, as: Feed
   alias DanielkingdevPlug.Blog.Search, as: Search
   alias DanielkingdevPlug.Blog.Mastodon, as: Mastodon
+  alias DanielkingdevPlug.Blog.Bluesky, as: Bluesky
 
   @posts Enum.sort_by(Post.build_posts, & &1.date, {:desc, DateTime})
 
@@ -15,7 +16,8 @@ defmodule DanielkingdevPlug.Blog do
   def all_posts, do: @posts
   def all_tags, do: @tags
   def feed, do: @feed
-  def statuses, do: Mastodon.statuses()
+  def mastodon_statuses, do: Mastodon.statuses()
+  def bluesky_statuses, do: Bluesky.statuses()
 
   def get_post_by_id!(id) do
     Enum.find(all_posts(), &(&1.id == id))
