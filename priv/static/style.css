@@ -164,12 +164,6 @@ pre {
   gap: 1rem;
 }
 
-@media (max-width: 700px) {
-  #social-feeds {
-    grid-template-columns: auto;
-  }
-}
-
 .author {
   display: grid;
   grid-template-columns: 10% auto;
@@ -177,6 +171,16 @@ pre {
 
   strong {
     align-content: center;
+  }
+}
+
+@media (max-width: 700px) {
+  #social-feeds {
+    grid-template-columns: auto;
+  }
+
+  .author {
+    grid-template-columns: 17% auto;
   }
 }
 
